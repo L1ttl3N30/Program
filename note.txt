@@ -1,0 +1,47 @@
+1. in the program, there is "import pynput"
+- this is an external library (non-stand python library), so we have to "download it", which means "pip install lib_name" -> import lib_name
+
+2. pip is python package manager, it can download, install and manage packages. pip connects to PyPi, download the latest version of the package you need
+then install it in the current/active environment -> now you can import the library
+*ubuntu also manages python packages
+
+3. pip is not adviasble to be installed system wide on ubuntu coz it may break other apps that depend on ubuntu's python. this is because ubuntu use Python internally 
+meaning its system python must be stable and untouched, if anyone accidentally installs or updates a python package that the system depend on, it could break the os
+
+error: this environment is externally managed means that this environment (current os) is being managed by system python. dont do anything to it.
+if you want to change something to the system python (i.e install pip), make sure you dont do it in this environment
+4. solution: use venv
+- make sure you are in the project folder (the pwd shows the project folder)
+python3 -m venv myenv
+source myenv/bin/activate
+pip install pynput
+deactivate
+
+
+5.if i have a folder "project" and python3 -m venv venv, then a venv is created but only for that folder. 
+I can do the same for other folders and the venvs are totally isolated
+when inside the venv, i can work with all the things system wide, except for system-installed python packages (this is hidden from vevn) or things from other venvs
+
+6. problems with try, except:
+you try importing it -> failed coz you have not installed yet -> except : now you install -> but after installing, you have not imported->undefined keyboard
+-> just remove the try, except, finally
+-> install them from the beginning (in terminal) since you are already in venv
+pip install pynput pyscreenshot sounddevice Pillow
+
+7. sed -i 's/^    //' keylogger.py    to remove 4 spaces from ALL lines in the file
+
+8. pil missing: apt install Pillow
+
+9. audio:
+system wide: 
+sudo apt update
+sudo apt install libportaudio2 libportaudiocpp0 portaudio19-dev
+
+venv:
+sudo apt update
+sudo apt install libportaudio2 libportaudiocpp0 portaudio19-dev
+
+10. smtp problem:
+you send mail as m, not as message
+correct:             server.sendmail(sender, receiver, m)
+
