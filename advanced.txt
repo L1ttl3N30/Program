@@ -1,0 +1,102 @@
+How to Capture Keylogger Behavior Without Writing One
+
+Use the following tools inside your isolated VM:
+
+📌 Sysmon + Event Logs
+
+Sysmon can detect:
+
+Keyboard API calls
+
+Process injection
+
+Suspicious hooks
+
+📌 Procmon (Process Monitor)
+
+It shows:
+
+API usage (SetWindowsHookEx, GetAsyncKeyState)
+
+File writes
+
+Registry writes
+
+📌 WinDbg / x64dbg
+
+Attach and observe:
+
+Hooks
+
+Input APIs
+
+Memory buffers containing keystrokes
+
+📌 ETW / API Monitoring
+
+Use Windows ETW providers to monitor:
+
+Keyboard events
+
+User32.dll and Win32k.sys function calls
+
+
+
+
+How Keyloggers Work (Educational Explanation)
+🔹 Method 1 — Polling
+
+Using APIs like:
+
+GetAsyncKeyState()
+GetKeyState()
+
+
+The malware checks every key constantly.
+
+🔹 Method 2 — Windows Hooks
+
+Using:
+
+SetWindowsHookEx(WH_KEYBOARD_LL)
+CallNextHookEx()
+
+
+This is extremely common in spyware and RATs.
+
+🔹 Method 3 — Direct Input API
+
+Using:
+
+GetForegroundWindow()
+GetWindowText()
+GetWindowThreadProcessId()
+
+
+Used to match keystrokes with window titles.
+
+🔹 Method 4 — Kernel Drivers (Advanced)
+
+Rootkits hook:
+
+IRP handlers
+
+Keyboard class drivers
+
+Win32k.sys syscalls
+
+🔹 Method 5 — Injecting Into Other Processes
+
+Common API chain:
+
+OpenProcess
+
+VirtualAllocEx
+
+WriteProcessMemory
+
+CreateRemoteThread
+
+Hook user32.dll inside the target process
+
+This lets you study keylogging behavior without writing any.
